@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "Compose")) {
+fun MyApp(modifier: Modifier = Modifier) {
+    val list = List(1000) { it.toString()}
     var shouldShowOnboardingScreen by remember {
         mutableStateOf(true)
     }
@@ -33,7 +34,7 @@ fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "
             shouldShowOnboardingScreen = false
         }
     } else {
-        Greetings(modifier = modifier, names = names)
+        Greetings(modifier = modifier, list = list)
     }
 }
 
