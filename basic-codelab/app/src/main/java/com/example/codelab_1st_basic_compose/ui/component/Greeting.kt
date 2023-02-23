@@ -1,5 +1,6 @@
 package com.example.codelab_1st_basic_compose.ui.component
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -15,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.codelab_1st_basic_compose.ui.theme.BasicComposeTheme
@@ -29,7 +32,7 @@ fun Greeting(name: String) {
         targetValue = if (expanded.value) 48.dp else 0.dp,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow
+            stiffness = Spring.StiffnessMedium
         )
     )
 
@@ -43,7 +46,11 @@ fun Greeting(name: String) {
                     .weight(1f),
             ) {
                 Text(text = "Hello!")
-                Text(text = name)
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.ExtraBold
+                )
             }
 
             ElevatedButton(
@@ -60,7 +67,12 @@ fun Greeting(name: String) {
     }
 }
 
-@Preview(showBackground = false, widthDp = 320)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "Greet Dark"
+)
 @Composable
 fun GreetingPreview() {
     BasicComposeTheme {
