@@ -1,5 +1,8 @@
 package com.example.codelab_1st_basic_compose.ui.component
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +25,13 @@ fun Greeting(name: String) {
         mutableStateOf(false)
     }
 
-    val expandedPadding = if (expanded.value) 48.dp else 0.dp
+    val expandedPadding = animateDpAsState(
+        targetValue = if (expanded.value) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMediumLow
+        )
+    )
 
     Surface(color = MaterialTheme.colorScheme.primary,
         modifier = Modifier
@@ -40,7 +49,7 @@ fun Greeting(name: String) {
             ElevatedButton(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = expandedPadding),
+                    .padding(bottom = expandedPadding.value.coerceAtLeast(0.dp)),
                 onClick = {
                     expanded.value = !expanded.value
                 }
