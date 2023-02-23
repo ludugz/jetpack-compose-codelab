@@ -53,7 +53,7 @@ fun Greeting(name: String) {
 
 @Preview(showBackground = false, widthDp = 320)
 @Composable
-fun DefaultPreview() {
+fun GreetingPreview() {
     BasicComposeTheme {
         Greeting("Android")
     }

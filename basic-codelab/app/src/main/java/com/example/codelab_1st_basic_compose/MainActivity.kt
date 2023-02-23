@@ -3,13 +3,12 @@ package com.example.codelab_1st_basic_compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.codelab_1st_basic_compose.ui.component.Greeting
+import com.example.codelab_1st_basic_compose.ui.OnboardingScreen
+import com.example.codelab_1st_basic_compose.ui.component.Greetings
 import com.example.codelab_1st_basic_compose.ui.theme.BasicComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,26 +16,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicComposeTheme {
-                MyApp(modifier = Modifier.fillMaxSize())
+                MyApp(modifier = Modifier.fillMaxWidth())
             }
         }
     }
 }
 
 @Composable
-fun MyApp(modifier: Modifier = Modifier) {
-    // A surface container using the 'background' color from the theme
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Greeting("Android")
+fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "Compose")) {
+    var shouldShowOnboardingScreen by remember {
+        mutableStateOf(true)
+    }
+
+    if (shouldShowOnboardingScreen) {
+        OnboardingScreen {
+            shouldShowOnboardingScreen = false
+        }
+    } else {
+        Greetings(modifier = modifier, names = names)
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false, widthDp = 320)
 @Composable
-fun DefaultPreview() {
+fun MyAppPreview() {
     BasicComposeTheme {
         MyApp()
     }
