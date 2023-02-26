@@ -23,6 +23,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -79,10 +81,14 @@ fun AlignYourBodyElement(
         Image(
             painterResource(id = drawable),
             modifier = Modifier
-                .height(88.dp)
+                .size(88.dp)
                 .clip(shape = CircleShape),
+            contentScale = ContentScale.Crop,
             contentDescription = null)
-        Text(text = stringResource(id = text))
+        Text(
+            text = stringResource(id = text),
+            style = MaterialTheme.typography.body2,
+        )
     }
 }
 
@@ -115,9 +121,17 @@ fun FavoriteCollectionCard(
 // Step: Align your body row - Arrangements
 @Composable
 fun AlignYourBodyRow(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp)
+    ) {
+        items(alignYourBodyData) { data ->
+            AlignYourBodyElement(drawable = data.drawable, text = data.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
@@ -186,7 +200,8 @@ fun SearchBarPreview() {
 @Preview(
     showBackground = true,
     backgroundColor = 0xFFF0EAE2,
-    heightDp = 128,
+    heightDp = 256,
+    widthDp = 256
 )
 @Composable
 fun AlignYourBodyElementPreview() {
