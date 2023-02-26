@@ -24,8 +24,13 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -137,23 +142,59 @@ fun AlignYourBodyRow(
 // Step: Favorite collections grid - LazyGrid
 @Composable
 fun FavoriteCollectionsGrid(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    // Implement composable here
+    LazyHorizontalGrid(
+        modifier = Modifier.height(128.dp),
+        rows = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(8.dp)
+    ) {
+        items(favoriteCollectionsData) { item ->
+            FavoriteCollectionCard(
+                modifier = Modifier.height(64.dp),
+                drawable = item.drawable,
+                text = item.text
+            )
+        }
+    }
 }
 
 // Step: Home section - Slot APIs
 @Composable
 fun HomeSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    @StringRes title: Int,
+    content: @Composable () -> Unit,
 ) {
-    // Implement composable here
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(id = title).uppercase(),
+            modifier = Modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 8.dp)
+                .padding(horizontal = 16.dp),
+            style = MaterialTheme.typography.h2,
+        )
+        content()
+    }
 }
 
 // Step: Home screen - Scrolling
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    // Implement composable here
+fun HomeScreen(
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
+        Spacer(modifier = Modifier.height(16.dp))
+
+        SearchBar()
+
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+    }
 }
 
 // Step: Bottom navigation - Material
@@ -226,7 +267,7 @@ fun FavoriteCollectionCardPreview() {
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2, heightDp = 256, widthDp = 128)
 @Composable
 fun FavoriteCollectionsGridPreview() {
     MySootheTheme { FavoriteCollectionsGrid() }
@@ -241,10 +282,14 @@ fun AlignYourBodyRowPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun HomeSectionPreview() {
-    MySootheTheme { HomeSection() }
+    MySootheTheme {
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+    }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2, heightDp = 128)
 @Composable
 fun ScreenContentPreview() {
     MySootheTheme { HomeScreen() }
