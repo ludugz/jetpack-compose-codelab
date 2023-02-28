@@ -120,7 +120,7 @@ fun FavoriteCollectionCard(
             )
             Text(text = stringResource(id = text),
                 modifier = Modifier.padding(horizontal = 8.dp),
-                style = MaterialTheme.typography.h3)
+                style = MaterialTheme.typography.subtitle1)
         }
     }
 }
@@ -175,7 +175,7 @@ fun HomeSection(
             modifier = Modifier
                 .paddingFromBaseline(top = 40.dp, bottom = 8.dp)
                 .padding(horizontal = 16.dp),
-            style = MaterialTheme.typography.h2,
+            style = MaterialTheme.typography.body1,
         )
         content()
     }
@@ -193,6 +193,10 @@ fun HomeScreen(
 
         HomeSection(title = R.string.align_your_body) {
             AlignYourBodyRow()
+        }
+
+        HomeSection(title = R.string.align_your_body) {
+            FavoriteCollectionsGrid()
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -231,7 +235,11 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 // Step: MySoothe App - Scaffold
 @Composable
 fun MySootheApp() {
-    // Implement composable here
+    Scaffold(bottomBar = {
+        SootheBottomNavigation()
+    }) { paddingValues ->
+        HomeScreen(Modifier.padding(paddingValues = paddingValues))
+    }
 }
 
 private val alignYourBodyData = listOf(
