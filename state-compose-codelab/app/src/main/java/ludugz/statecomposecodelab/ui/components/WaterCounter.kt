@@ -2,6 +2,8 @@ package ludugz.statecomposecodelab.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -13,26 +15,40 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WaterCounter(modifier: Modifier = Modifier) {
-    var count by remember {
-        mutableStateOf(value = 0)
-    }
-
-    Column {
-        if (count > 0) {
-            Text(
-                text = "You've had $count glasses",
-                modifier = Modifier
-                    .padding(16.dp),
-            )
+    Column(modifier = Modifier.fillMaxWidth()) {
+        var count by remember {
+            mutableStateOf(value = 0)
         }
-        OutlinedButton(
-            onClick = { count++ },
-            modifier = Modifier.background(color = Color.Gray),
-            enabled = count < 10
-        ) {
-            Text(
-                text = "Add One",
-            )
+        if (count > 0) {
+            var enableTask by remember {
+                mutableStateOf(true)
+            }
+            if (enableTask) {
+                WellnessTaskItem(taskName = "Have you taken your 15 min walk today?") {
+                    enableTask = false
+                }
+            }
+            Text(text = "You have $count glasses")
+        }
+        Row(modifier = Modifier.padding(8.dp)) {
+            OutlinedButton(
+                onClick = { count++ },
+                modifier = Modifier.background(color = Color.Gray),
+                enabled = count < 10
+            ) {
+                Text(
+                    text = "Add One",
+                )
+            }
+            OutlinedButton(
+                onClick = { count = 0 },
+                modifier = Modifier.background(color = Color.Gray),
+                enabled = count < 10
+            ) {
+                Text(
+                    text = "Clear",
+                )
+            }
         }
     }
 }
