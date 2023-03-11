@@ -17,7 +17,7 @@ fun WellnessTaskList(
         items(taskList, key = { item -> item.id }) { item ->
             WellnessTaskItem(
                 taskName = item.label,
-                checked = item.checked.value,
+                checked = item.checked,
                 onClose = { onItemClose(item) },
                 onCheckedChange = { onCheckedChange(item.id, it) }
             )

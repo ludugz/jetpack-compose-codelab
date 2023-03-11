@@ -14,7 +14,7 @@ class WellnessViewModel : ViewModel() {
 
     fun changeTaskChecked(id: Int, isChecked: Boolean) {
         tasks.find { item -> id == item.id }?.let { item ->
-            item.checked.value = isChecked
+            item.checked = isChecked
         }
     }
 }
