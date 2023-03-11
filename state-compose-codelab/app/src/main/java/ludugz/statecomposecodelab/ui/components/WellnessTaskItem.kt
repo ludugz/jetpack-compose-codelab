@@ -54,19 +54,22 @@ fun WellnessTaskItem(
     }
 }
 
-// Stateful
-@Composable
-fun WellnessTaskItem(taskName: String, onClose: () -> Unit) {
-    var checkedState by rememberSaveable {
-        mutableStateOf(false)
-    }
-    WellnessTaskItem(
-        taskName = taskName,
-        checked = checkedState,
-        onClose = onClose,
-        onCheckedChange = { checked -> checkedState = checked }
-    )
-}
+/**
+ * Stateful Composable is a Composable that hold state value
+ * We should only have Stateless
+ */
+//@Composable
+//fun WellnessTaskItem(taskName: String, onClose: () -> Unit) {
+//    var checkedState by rememberSaveable {
+//        mutableStateOf(false)
+//    }
+//    WellnessTaskItem(
+//        taskName = taskName,
+//        checked = checkedState,
+//        onClose = onClose,
+//        onCheckedChange = { checked -> checkedState = checked }
+//    )
+//}
 
 @Preview
 @Composable

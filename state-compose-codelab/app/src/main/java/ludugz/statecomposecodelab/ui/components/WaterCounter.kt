@@ -30,7 +30,7 @@ fun StatelessCounter(
 }
 
 @Composable
-fun StatefulCounter(modifier: Modifier = Modifier) {
+fun StatefulCounter(modifier: Modifier = Modifier, count: Int = 0) {
     var count by remember {
         mutableStateOf(0)
     }

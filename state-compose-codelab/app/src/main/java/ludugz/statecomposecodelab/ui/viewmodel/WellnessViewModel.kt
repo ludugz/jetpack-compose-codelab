@@ -5,12 +5,17 @@ import androidx.lifecycle.ViewModel
 import ludugz.statecomposecodelab.model.WellnessTask
 
 class WellnessViewModel : ViewModel() {
-    private val _tasks = getWellnessTasks().toMutableStateList()
-    val tasks: List<WellnessTask>
-        get() = _tasks
+    var tasks = getWellnessTasks().toMutableStateList()
+    var count = 0
 
     fun remove(item: WellnessTask) {
-        _tasks.remove(item)
+        tasks.remove(item)
+    }
+
+    fun changeTaskChecked(id: Int, isChecked: Boolean) {
+        tasks.find { item -> id == item.id }?.let { item ->
+            item.checked.value = isChecked
+        }
     }
 }
 

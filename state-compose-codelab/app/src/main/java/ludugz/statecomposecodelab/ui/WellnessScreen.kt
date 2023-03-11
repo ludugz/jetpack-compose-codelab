@@ -17,9 +17,11 @@ fun WellnessScreen(
     Column(modifier = modifier) {
         StatefulCounter(modifier = modifier)
 
-        WellnessTaskList(taskList = viewModel.tasks) { item ->
-            viewModel.remove(item)
-        }
+        WellnessTaskList(
+            taskList = viewModel.tasks,
+            onItemClose = viewModel::remove,
+            onCheckedChange = viewModel::changeTaskChecked
+        )
     }
 }
 
