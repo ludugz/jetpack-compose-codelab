@@ -22,16 +22,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.ListItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.runtime.Composable
@@ -50,7 +41,7 @@ import com.codelab.theming.R
 import com.codelab.theming.data.Post
 import com.codelab.theming.data.PostRepo
 import com.codelab.theming.ui.start.theme.JetnewsTheme
-import java.util.Locale
+import java.util.*
 
 @Composable
 fun Home() {
@@ -209,9 +200,18 @@ private fun PostItemPreview() {
     }
 }
 
-@Preview("Featured Post")
+@Preview("Featured Post normal")
 @Composable
 private fun FeaturedPostPreview() {
+    val post = remember { PostRepo.getFeaturedPost() }
+    JetnewsTheme {
+        FeaturedPost(post = post)
+    }
+}
+
+@Preview("Featured Post with Material Design")
+@Composable
+private fun FeaturedPostMaterialDesignPreview() {
     val post = remember { PostRepo.getFeaturedPost() }
     JetnewsTheme {
         FeaturedPost(post = post)
@@ -221,5 +221,7 @@ private fun FeaturedPostPreview() {
 @Preview("Home")
 @Composable
 private fun HomePreview() {
-    Home()
+    JetnewsTheme {
+        Home()
+    }
 }
