@@ -26,6 +26,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -86,29 +87,35 @@ private fun AppBar() {
         title = {
             Text(text = stringResource(R.string.app_title))
         },
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = MaterialTheme.colors.primarySurface
     )
 }
 
 @Composable
 fun Header(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = text,
+    Surface(
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.1f),
+        contentColor = MaterialTheme.colors.primary,
         modifier = modifier
-            .fillMaxWidth()
-            .background(Color.LightGray)
-            .semantics { heading() }
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    )
+    ) {
+        Text(
+            text = text,
+            modifier = modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+                .semantics { heading() }
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+    }
 }
 
 @Composable
 fun FeaturedPost(
     post: Post,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(modifier) {
         Column(
@@ -144,7 +151,7 @@ fun FeaturedPost(
 @Composable
 private fun PostMetadata(
     post: Post,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val divider = "  •  "
     val tagDivider = "  "
@@ -160,17 +167,21 @@ private fun PostMetadata(
             append(" ${tag.uppercase(Locale.getDefault())} ")
         }
     }
-    Text(
-        text = text,
-        modifier = modifier
-    )
+    Column {
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(
+                text = text,
+                modifier = modifier
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PostItem(
     post: Post,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ListItem(
         modifier = modifier
@@ -209,11 +220,15 @@ private fun FeaturedPostPreview() {
     }
 }
 
-@Preview("Featured Post with Material Design")
+@Preview(
+    "Featured Post [DARK] with Material Design",
+    widthDp = 128,
+    heightDp = 256
+)
 @Composable
 private fun FeaturedPostMaterialDesignPreview() {
     val post = remember { PostRepo.getFeaturedPost() }
-    JetnewsTheme {
+    JetnewsTheme(true) {
         FeaturedPost(post = post)
     }
 }
@@ -221,7 +236,44 @@ private fun FeaturedPostMaterialDesignPreview() {
 @Preview("Home")
 @Composable
 private fun HomePreview() {
-    JetnewsTheme {
+    Home()
+}
+
+@Preview("Material Home [Light]")
+@Composable
+private fun MaterialHomePreview() {
+    JetnewsTheme(false) {
         Home()
     }
+}
+
+@Preview("Header with Surface Color")
+@Composable
+private fun PreviewHeaderWithSurface() {
+    Surface(
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.1f),
+        contentColor = MaterialTheme.colors.primary,
+    ) {
+        Text(
+            text = "Preview Text",
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray)
+                .semantics { heading() }
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+    }
+}
+
+@Preview("Header")
+@Composable
+private fun PreviewHeader() {
+    Text(
+        text = "Preview Text",
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray)
+            .semantics { heading() }
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    )
 }
