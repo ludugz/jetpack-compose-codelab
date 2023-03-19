@@ -61,7 +61,7 @@ class PlantDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             composeView.setContent {
                 MaterialTheme {
-                    PlantDetailDescription()
+                    PlantDetailDescription("Sample text")
                 }
             }
             callback = object : Callback {
