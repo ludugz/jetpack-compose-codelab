@@ -61,7 +61,7 @@ class PlantDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             composeView.setContent {
                 MaterialTheme {
-                    PlantDetailDescription("Sample text")
+                    PlantDetailDescription(plantDetailViewModel.plant)
                 }
             }
             callback = object : Callback {
@@ -122,13 +122,7 @@ class PlantDetailFragment : Fragment() {
     // Should be used when user presses a share button/menu item.
     @Suppress("DEPRECATION")
     private fun createShareIntent() {
-        val shareText = plantDetailViewModel.plant.value.let { plant ->
-            if (plant == null) {
-                ""
-            } else {
-                getString(R.string.share_text_plant, plant.name)
-            }
-        }
+        val shareText = getString(R.string.share_text_plant, plantDetailViewModel.plant.name)
         val shareIntent = ShareCompat.IntentBuilder.from(requireActivity())
             .setText(shareText)
             .setType("text/plain")

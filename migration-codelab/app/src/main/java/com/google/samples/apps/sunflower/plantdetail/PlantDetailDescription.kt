@@ -25,22 +25,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.samples.apps.sunflower.data.Plant
 
 @Composable
-fun PlantDetailDescription(text: String) {
+fun PlantDetailDescription(plant: Plant) {
     Surface {
-        Text(
-            text = text,
+        Text(text = plant.name,
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.h5
-        )
+            style = MaterialTheme.typography.h5)
     }
 }
 
 @Preview
 @Composable
 fun PreviewPlantDetailDescription() {
-    PlantDetailDescription("Dummy Text")
+    PlantDetailDescription(plant = Plant(
+        plantId = "Dummy ID",
+        name = "Dummy Name",
+        description = "Dummy Description",
+        growZoneNumber = 13,
+    ))
 }
