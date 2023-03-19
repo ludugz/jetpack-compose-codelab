@@ -16,28 +16,46 @@
 
 package com.google.samples.apps.sunflower.viewmodels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.samples.apps.sunflower.data.GardenPlantingRepository
+import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.data.PlantRepository
 import com.google.samples.apps.sunflower.plantdetail.PlantDetailFragment
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
  * The ViewModel used in [PlantDetailFragment].
  */
 class PlantDetailViewModel(
-    plantRepository: PlantRepository,
+    private val plantRepository: PlantRepository,
     private val gardenPlantingRepository: GardenPlantingRepository,
     private val plantId: String
 ) : ViewModel() {
 
     val isPlanted = gardenPlantingRepository.isPlanted(plantId)
-    val plant = plantRepository.getPlant(plantId)
+
+    var plant by mutableStateOf(Plant.DEFAULT)
+
+    init {
+        viewModelScope.launch {
+            managePlantState()
+        }
+    }
 
     fun addPlantToGarden() {
         viewModelScope.launch {
             gardenPlantingRepository.createGardenPlanting(plantId)
+        }
+    }
+
+    private suspend fun managePlantState() {
+        plantRepository.getPlant(plantId = plantId).collectLatest { plant ->
+            this.plant = plant
         }
     }
 }
