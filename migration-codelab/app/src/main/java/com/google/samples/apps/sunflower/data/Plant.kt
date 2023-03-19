@@ -19,7 +19,7 @@ package com.google.samples.apps.sunflower.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Calendar
+import java.util.*
 import java.util.Calendar.DAY_OF_YEAR
 
 @Entity(tableName = "plants")
@@ -29,7 +29,7 @@ data class Plant(
     val description: String,
     val growZoneNumber: Int,
     val wateringInterval: Int = 7, // how often the plant should be watered, in days
-    val imageUrl: String = ""
+    val imageUrl: String = "",
 ) {
 
     /**
@@ -40,4 +40,13 @@ data class Plant(
         since > lastWateringDate.apply { add(DAY_OF_YEAR, wateringInterval) }
 
     override fun toString() = name
+
+    companion object {
+        val DEFAULT = Plant(
+            "",
+            "",
+            "",
+            -1
+        )
+    }
 }
