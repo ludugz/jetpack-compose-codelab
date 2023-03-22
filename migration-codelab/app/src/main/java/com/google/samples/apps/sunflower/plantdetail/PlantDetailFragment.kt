@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
@@ -52,30 +53,42 @@ class PlantDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val binding = DataBindingUtil.inflate<FragmentPlantDetailBinding>(
             inflater, R.layout.fragment_plant_detail, container, false
         ).apply {
             viewModel = plantDetailViewModel
+
             lifecycleOwner = viewLifecycleOwner
-            composeView.setContent {
-                MaterialTheme {
-                    PlantDetailContent(plantDetailViewModel.plant)
-                }
-            }
-            callback = object : Callback {
-                override fun add(plant: Plant?) {
-                    plant?.let {
-                        hideAppBarFab(fab)
-                        plantDetailViewModel.addPlantToGarden()
-                        Snackbar.make(root, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG)
-                            .show()
+
+            composeView.apply {
+                // Dispose the Composition when the view's LifecycleOwner
+                // is destroyed
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+
+                setContent {
+                    MaterialTheme {
+                        PlantDetailContent(plantDetailViewModel.plant)
                     }
                 }
             }
 
+            callback =
+                object : Callback {
+                    override fun add(plant: Plant?) {
+                        plant?.let {
+                            hideAppBarFab(fab)
+                            plantDetailViewModel.addPlantToGarden()
+                            Snackbar.make(root,
+                                R.string.added_plant_to_garden,
+                                Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
             var isToolbarShown = false
+
 
             // scroll change listener begins at Y = 0 when image is fully collapsed
             plantDetailScrollview.setOnScrollChangeListener(
