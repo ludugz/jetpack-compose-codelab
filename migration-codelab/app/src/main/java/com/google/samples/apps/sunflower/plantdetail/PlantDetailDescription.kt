@@ -2,12 +2,12 @@ package com.google.samples.apps.sunflower.plantdetail
 
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
+import com.google.accompanist.themeadapter.material.MdcTheme
 
 @Composable
 fun PlantDetailDescription(description: String) {
@@ -33,7 +33,7 @@ fun PlantDetailDescription(description: String) {
 @Preview
 @Composable
 private fun PlantDescriptionPreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantDetailDescription("HTML<br><br>description")
     }
 }

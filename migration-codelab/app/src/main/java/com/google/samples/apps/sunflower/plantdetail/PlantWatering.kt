@@ -8,16 +8,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.themeadapter.material.MdcTheme
 import com.google.samples.apps.sunflower.R
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PlantWatering(modifier: Modifier = Modifier, wateringInterval: Int) {
     Column(modifier = modifier) {
@@ -52,7 +51,7 @@ fun PlantWatering(modifier: Modifier = Modifier, wateringInterval: Int) {
 @Preview
 @Composable
 private fun PlantWateringPreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantWatering(wateringInterval = 7)
     }
 }
