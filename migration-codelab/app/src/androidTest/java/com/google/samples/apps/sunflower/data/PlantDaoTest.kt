@@ -24,6 +24,7 @@ import com.google.samples.apps.sunflower.utilities.getValue
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.equalTo
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -76,6 +77,6 @@ class PlantDaoTest {
     }
 
     @Test fun testGetPlant() {
-        assertThat(getValue(plantDao.getPlant(plantA.plantId)), equalTo(plantA))
+        assertEquals(plantDao.getPlant(plantA.plantId), equalTo(plantA))
     }
 }
