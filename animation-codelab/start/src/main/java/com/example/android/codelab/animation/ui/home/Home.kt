@@ -250,7 +250,23 @@ private fun EditMessage(shown: Boolean) {
     // TODO 2-2: The message should slide down from the top on appearance and slide up on
     //           disappearance.
     AnimatedVisibility(
-        visible = shown
+        visible = shown,
+        enter = slideInVertically(
+            initialOffsetY = { height -> -height },
+//            animationSpec = spring(
+//                dampingRatio = Spring.DampingRatioMediumBouncy,
+//                stiffness = Spring.StiffnessMediumLow,
+//            ),
+            animationSpec = tween(durationMillis = 500, easing = LinearOutSlowInEasing)
+        ),
+        exit = slideOutVertically(
+            targetOffsetY = { height -> -height },
+//            animationSpec = spring(
+//                dampingRatio = Spring.DampingRatioMediumBouncy,
+//                stiffness = Spring.StiffnessMediumLow,
+//            )
+            animationSpec = tween(durationMillis = 500, easing = FastOutLinearInEasing)
+        ),
     ) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
