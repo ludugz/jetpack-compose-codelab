@@ -423,9 +423,20 @@ private fun HomeTabIndicator(
     tabPage: TabPage
 ) {
     // TODO 4: Animate these value changes.
-    val indicatorLeft = tabPositions[tabPage.ordinal].left
-    val indicatorRight = tabPositions[tabPage.ordinal].right
-    val color = if (tabPage == TabPage.Home) Purple700 else Green800
+//    val indicatorLeft = tabPositions[tabPage.ordinal].left
+//    val indicatorRight = tabPositions[tabPage.ordinal].right
+//    val color = if (tabPage == TabPage.Home) Purple700 else Green800
+    
+    val transition = updateTransition(targetState = tabPage, label = "Tab Page")
+    val indicatorLeft by transition.animateDp(label = "Indicator Left") { tab ->
+        tabPositions[tab.ordinal].left
+    }
+    val indicatorRight by transition.animateDp(label = "Indicator Right") { tab ->
+        tabPositions[tab.ordinal].right
+    }
+    val color by transition.animateColor(label = "Tab Color") { tab ->
+        if (tab == TabPage.Home) Purple700 else Green800
+    }
     Box(
         Modifier
             .fillMaxSize()
