@@ -158,11 +158,13 @@ fun Home() {
                     if (weatherLoading) {
                         LoadingRow()
                     } else {
-                        WeatherRow(onRefresh = {
-                            coroutineScope.launch {
-                                loadWeather()
-                            }
-                        })
+                        AnimatedVisibility(visible = true) {
+                            WeatherRow(onRefresh = {
+                                coroutineScope.launch {
+                                    loadWeather()
+                                }
+                            })
+                        }
                     }
                 }
             }
