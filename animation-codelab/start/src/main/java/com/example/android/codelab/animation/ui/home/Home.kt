@@ -16,11 +16,9 @@
 
 package com.example.android.codelab.animation.ui.home
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.*
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,9 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
@@ -62,6 +60,8 @@ import com.example.android.codelab.animation.ui.*
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 private enum class TabPage {
     Home, Work
@@ -249,8 +249,7 @@ private fun HomeFloatingActionButton(
  */
 @Composable
 private fun EditMessage(shown: Boolean) {
-    // TODO 2-2: The message should slide down from the top on appearance and slide up on
-    //           disappearance.
+    // TODO 2-2: The message should slide down from the top on appearance and slide up on // disappearance. (DONE)
     AnimatedVisibility(
         visible = shown,
         enter = slideInVertically(
@@ -337,15 +336,17 @@ private fun TopicRow(topic: String, expanded: Boolean, onClick: () -> Unit) {
         elevation = 2.dp,
         onClick = onClick
     ) {
-        // TODO 3: Animate the size change of the content.
+        // TODO 3: Animate the size change of the content. (DONE)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .animateContentSize(animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessLow
-                ))
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioNoBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                )
         ) {
             Row {
                 Icon(
@@ -424,7 +425,7 @@ private fun HomeTabIndicator(
     tabPositions: List<TabPosition>,
     tabPage: TabPage
 ) {
-    // TODO 4: Animate these value changes.
+    // TODO 4: Animate these value changes. (DONE)
 //    val indicatorLeft = tabPositions[tabPage.ordinal].left
 //    val indicatorRight = tabPositions[tabPage.ordinal].right
 //    val color = if (tabPage == TabPage.Home) Purple700 else Green800
