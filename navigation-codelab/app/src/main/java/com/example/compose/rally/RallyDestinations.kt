@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.MoneyOff
 import androidx.compose.material.icons.filled.PieChart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavController
 import com.example.compose.rally.ui.accounts.AccountsScreen
 import com.example.compose.rally.ui.accounts.SingleAccountScreen
 import com.example.compose.rally.ui.bills.BillsScreen
@@ -69,3 +70,10 @@ object SingleAccount : RallyDestination {
 
 // Screens to be displayed in the top RallyTabRow
 val rallyTabRowScreens = listOf(Overview, Accounts, Bills)
+
+// Navigate only when not from original screen
+fun NavController.navigateSingleTop(route: String) {
+    this.navigate(route = route) {
+        launchSingleTop = true
+    }
+}
