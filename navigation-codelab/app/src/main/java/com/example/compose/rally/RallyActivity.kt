@@ -57,7 +57,10 @@ fun RallyApp() {
             topBar = {
                 RallyTabRow(
                     allScreens = rallyTabRowScreens,
-                    onTabSelected = { screen -> currentScreen = screen },
+                    onTabSelected = { screen ->
+                        currentScreen = screen
+                        navController.navigate(screen.route)
+                    },
                     currentScreen = currentScreen
                 )
             }
@@ -65,23 +68,23 @@ fun RallyApp() {
             NavHost(
                 navController = navController,
                 startDestination = Overview.route,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.padding(innerPadding),
             ) {
                 composable(route = Overview.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Overview.screen
+                        Overview.screen()
                     }
                 }
 
                 composable(route = Accounts.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Accounts.screen
+                        Accounts.screen()
                     }
                 }
 
                 composable(route = Bills.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Bills.screen
+                        Bills.screen()
                     }
                 }
             }
