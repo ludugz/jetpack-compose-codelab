@@ -77,3 +77,13 @@ fun NavController.navigateSingleTop(route: String) {
         launchSingleTop = true
     }
 }
+
+fun NavController.navigate(route: String) {
+    this.navigate(route = route) {
+        popUpTo(route = Overview.route) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+}
