@@ -20,7 +20,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -33,7 +32,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.rally.ui.accounts.AccountsScreen
+import com.example.compose.rally.ui.bills.BillsScreen
 import com.example.compose.rally.ui.components.RallyTabRow
+import com.example.compose.rally.ui.overview.OverviewScreen
 import com.example.compose.rally.ui.theme.RallyTheme
 
 /**
@@ -75,19 +77,19 @@ fun RallyApp() {
             ) {
                 composable(route = Overview.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Overview.screen()
+                        OverviewScreen()
                     }
                 }
 
                 composable(route = Accounts.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Accounts.screen()
+                        AccountsScreen()
                     }
                 }
 
                 composable(route = Bills.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        Bills.screen()
+                        BillsScreen()
                     }
                 }
             }
