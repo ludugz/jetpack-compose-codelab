@@ -77,7 +77,14 @@ fun RallyApp() {
             ) {
                 composable(route = Overview.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        OverviewScreen()
+                        OverviewScreen(
+                            onClickSeeAllAccounts = {
+                                navController.navigateSingleTop(route = Accounts.route)
+                            },
+                            onClickSeeAllBills = {
+                                navController.navigateSingleTop(route = Bills.route)
+                            }
+                        )
                     }
                 }
 
