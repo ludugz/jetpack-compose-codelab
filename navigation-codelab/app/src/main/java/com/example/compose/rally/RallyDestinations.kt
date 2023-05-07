@@ -66,7 +66,7 @@ object SingleAccount : RallyDestination {
 // Screens to be displayed in the top RallyTabRow
 val rallyTabRowScreens = listOf(Overview, Accounts, Bills)
 
-// Navigate only when not from original screen
+// Navigate only when the screen is not at the top
 fun NavController.navigateSingleTop(route: String) {
     this.navigate(route = route) {
         launchSingleTop = true
