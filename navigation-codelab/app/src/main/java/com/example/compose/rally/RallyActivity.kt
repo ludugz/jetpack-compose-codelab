@@ -63,7 +63,7 @@ fun RallyApp() {
                     allScreens = rallyTabRowScreens,
                     onTabSelected = { screen ->
                         currentScreen = screen
-                        navController.navigateSingleTop(screen.route)
+                        navController.navigateSavedState(screen.route)
                     },
                     currentScreen = rallyTabRowScreens.find { it.route == currentBackStack?.destination?.route }
                         ?: Overview
@@ -79,10 +79,10 @@ fun RallyApp() {
                     Box(Modifier.padding(innerPadding)) {
                         OverviewScreen(
                             onClickSeeAllAccounts = {
-                                navController.navigateSingleTop(route = Accounts.route)
+                                navController.navigateSavedState(route = Accounts.route)
                             },
                             onClickSeeAllBills = {
-                                navController.navigateSingleTop(route = Bills.route)
+                                navController.navigateSavedState(route = Bills.route)
                             }
                         )
                     }
