@@ -14,6 +14,6 @@ This repository is my practice for Jetpack Compose from https://github.com/googl
 - Able to customize behavior of navigation
   - `launchSingleTop = true`: Enable this allow the app to make sure there is only one type of given destination on the top of back stack
   - `popUpTo(selectedDestination) { saveState = true }`: Pop up to a selected destination and save its state before navigating to any Composables.
-
+  - `restoreState = true`: determines whether previous screen should save its state (i.e. scrolling position, etc.).
 
 
