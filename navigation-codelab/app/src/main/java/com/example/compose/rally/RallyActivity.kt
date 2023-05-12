@@ -84,6 +84,9 @@ fun RallyApp() {
                             },
                             onClickSeeAllBills = {
                                 navController.navigateSavedState(route = Bills.route)
+                            },
+                            onAccountClick = { accountType ->
+                                navController.navigateToSingleAccount(accountType = accountType)
                             }
                         )
                     }
