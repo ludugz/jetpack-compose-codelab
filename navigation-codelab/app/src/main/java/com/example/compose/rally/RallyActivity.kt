@@ -88,7 +88,7 @@ fun RallyApp() {
                                 navController.navigateSavedState(route = Bills.route)
                             },
                             onAccountClick = { accountType ->
-                                navController.navigateToSingleAccount(accountType = accountType)
+                                navController.navigateSavedState(route = "${SingleAccount.route}/${accountType}")
                             }
                         )
                     }
@@ -96,7 +96,9 @@ fun RallyApp() {
 
                 composable(route = Accounts.route) {
                     Box(Modifier.padding(innerPadding)) {
-                        AccountsScreen()
+                        AccountsScreen { accountType ->
+                            navController.navigateSavedState(route = "${SingleAccount.route}/${accountType}")
+                        }
                     }
                 }
 
