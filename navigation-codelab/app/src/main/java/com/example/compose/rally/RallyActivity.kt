@@ -111,6 +111,7 @@ fun RallyApp() {
                 composable(
                     route = SingleAccount.routeWithArgs,
                     arguments = SingleAccount.arguments,
+                    deepLinks = SingleAccount.deepLink
                 ) {
                     // Retrieve the passed argument
                     val accountType =

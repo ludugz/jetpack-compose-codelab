@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 
 /**
  * Contract for information needed on every Rally navigation destination
@@ -63,6 +64,11 @@ object SingleAccount : RallyDestination {
     val arguments = listOf(
         navArgument(name = accountTypeArg) {
             type = NavType.StringType
+        },
+    )
+    val deepLink = listOf(
+        navDeepLink {
+            uriPattern = "rally://$route/{${accountTypeArg}}"
         }
     )
 }
