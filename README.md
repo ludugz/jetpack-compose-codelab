@@ -11,13 +11,14 @@ So I created this repository as an effort to practice Jetpack Compose from https
 
 - **Navigation:** 
   - Use `NavController`, `NavHost` to easily manage the navigation of the app between different Composable components.
-  - Link `RallyTabRow` composable UI (similar to a `BottomNavigation`) with `NavController`
+  - Link tab row composable UI (similar to a bottom navigation) with `NavController`
   - Customize behavior of navigation
     - `launchSingleTop = true`: Enable this allow the app to make sure there is only one type of given destination on the top of back stack
     - `popUpTo(selectedDestination) { saveState = true }`: Pop up to a selected destination and save its state before navigating to any Composables.
     - `restoreState = true`: determines whether previous screen should save its state (i.e. scrolling position, etc.).
   - Routing
     - Jetpack Compose provides two ways to navigate: without arguments and with arguments. Noticing that the route must follow this pattern: `route/{argument}` (for example in this codelab, `routeWithArgs = "${route}/{${accountTypeArg}}`)
+  - Navigation testing
 
 - **State hoisting**: 
   - Instead of passing `NavController` to different Composables, good practice is to keep it in the top level to preserve the single source of truth. Otherwise, there might be multiple places which can potentially modify its state, making the app difficult to debug and not easy to test Composables.
